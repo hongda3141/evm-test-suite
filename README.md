@@ -11,5 +11,5 @@ $ git submodule update --init --recursive  --depth=1
 ```
 You can run tests with the following commands:
 ```shell
-$ todo
+$ cargo test --package evm-test-suite --lib -- block_chain_tests::test::run_example --exact --nocapture
 ```

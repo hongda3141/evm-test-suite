@@ -386,3 +386,57 @@ pub fn run_single_test<State: TestEvmState>(test: &str, single_case: &str, skip_
     let num = run_evm_test::<State>(test, single_case, skip_coinbase);
     print_result(num);
 }
+
+#[cfg(test)]
+mod test {
+
+    use super::*;
+
+    struct EvmState;
+
+    impl TestEvmState for EvmState {
+        fn init_state() -> Self {
+            Self
+        }
+
+        fn validate_account(
+            &self,
+            _: H160,
+            _: H160,
+            _: bool,
+            _: AccountState,
+        ) -> Result<(), String> {
+            // Err(String::from("11"))
+            Ok(())
+        }
+
+        fn try_apply_network_type(self, _: NetworkType) -> Result<Self, String> {
+            Ok(self)
+        }
+
+        fn try_apply_accounts<I>(self, _: I) -> Result<Self, String>
+        where
+            I: Iterator<Item = (H160, AccountState)>,
+        {
+            Ok(self)
+        }
+
+        fn try_apply_block_header(self, _: &BlockHeader) -> Result<Self, String> {
+            Ok(self)
+        }
+
+        fn try_apply_transaction(self, _: CallTransaction) -> Result<Self, String> {
+            Ok(self)
+        }
+    }
+
+    #[test]
+    fn run_examples() {
+        run_tests::<EvmState>(true);
+    }
+
+    #[test]
+    fn run_example() {
+        run_single_test::<EvmState>(vm::BLOCK_INFO, "", true);
+    }
+}
