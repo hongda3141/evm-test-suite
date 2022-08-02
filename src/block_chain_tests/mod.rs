@@ -257,11 +257,22 @@ pub trait TestEvmState: Sized {
             skipped: 0,
         };
         for (address, account) in iter {
+            // self.validate_account(address, coinbase, skip_coinbase, account)
+            //     .unwrap_or_else(|err| {
+            //         if !err.contains("skip") {
+            //             println!("{}", err);
+            //             sum.failed += 1
+            //         } else {
+            //             sum.skipped += 1;
+            //         }
+            //     });
             self.validate_account(address, coinbase, skip_coinbase, account)
                 .unwrap_or_else(|err| {
                     if !err.contains("skip") {
                         println!("{}", err);
-                        sum.failed += 1
+                        sum.failed += 1;
+                        // panic!("{:#?}", err);
+                        panic!();
                     } else {
                         sum.skipped += 1;
                     }

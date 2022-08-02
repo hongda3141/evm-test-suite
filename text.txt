@@ -1,0 +1,2 @@
+# evm-test-suite = {git = "https://github.com/hongda3141/evm-test-suite.git", rev = "11b057d"}
+evm-test-suite = {path = "../../../evm-test-suite"}
