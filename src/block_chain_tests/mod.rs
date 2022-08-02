@@ -1,6 +1,6 @@
 pub mod vm;
 
-use ethers_core::utils::hex;
+// use ethers_core::utils::hex;   // no need for this crate. use hex crate
 // use protocol::types::{Bytes, LegacyTransaction, TransactionAction};
 // use protocol::types::{
 //     MemoryAccount, SignatureComponents, SignedTransaction, UnsignedTransaction,
